@@ -12,7 +12,7 @@ const number = 13
 
 ---
 
-### Operadores
+## Operadores
 
 ```
 100 + 4 * 11
@@ -28,7 +28,7 @@ Los símbolos + y * se llaman operadores. El primero representa la suma y el seg
 
 Para la resta, está el operador **-**. La división se puede hacer con el operador **/**
 
-#### Precedencia (peso) de operadores
+### Precedencia (peso) de operadores
 
 ⚽️ Metáfora futbolera:
 Imagina que tienes 4 jugadores para cobrar penales en este orden:
@@ -109,12 +109,12 @@ Suma y resta tienen igual prioridad, así que se resuelve de izquierda a derecha
 
 ```
 
-#### Números especiales
+## Números especiales
 
 NaN significa “no es un número”, aunque es un valor del tipo numérico. Obtendrás este resultado cuando, por ejemplo, intentes calcular 0 / 0 (cero dividido por cero), Infinity - Infinity, u cualquier otra operación numérica que no produzca un resultado significativo.
 
 
-### Cadenas (string)
+## Cadenas (string)
 
 Las cadenas se utilizan para representar texto. Se escriben encerrando su contenido entre comillas.
 
@@ -141,11 +141,11 @@ Las cadenas escritas con comillas simples o dobles se comportan de manera muy si
 
 Cuando escribes algo dentro de ${} en una plantilla literal, su resultado se calculará, se convertirá en una cadena y se incluirá en esa posición. Este ejemplo produce “la mitad de 100 es 50”.
 
-### Valores booleanos
+## Valores booleanos
 
 A menudo es útil tener un valor que distinga solo entre dos posibilidades, como “sí" y “no” o “encendido” y “apagado”. Para este propósito, JavaScript tiene un tipo Booleano, que tiene solo dos valores, true y false, escritos como esas palabras.
 
-### Comparación
+## Comparación
 Los signos > y < son símbolos tradicionales para “es mayor que” y “es menor que”, respectivamente. Son operadores binarios. Aplicarlos da como resultado un valor booleano que indica si son verdaderos en este caso.
 
 ```
@@ -169,7 +169,7 @@ Carácter	Ranking Unicode
 " " (espacio)	32
 
 Comparación entre jugadores
-1. "Z" < "a" → true
+"Z" < "a" → true
 En el ranking:
 
 "Z" = 90
@@ -202,7 +202,7 @@ Como Hola es más corta pero idéntica hasta ese punto, se considera menor.
 Otros operadores similares son >= (mayor o igual que), <= (menor o igual que), == (igual a), y != (no igual a).
 
 
-### Operadores unarios
+## Operadores unarios
 
 #### ¿Qué significan los operadores unarios?
 Un operador unario es una acción que se aplica a una sola cosa (una variable o un valor) para obtener un nuevo resultado. Es como una instrucción corta que modifica o te dice algo sobre ese único elemento.
