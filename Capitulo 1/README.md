@@ -202,6 +202,140 @@ Como Hola es más corta pero idéntica hasta ese punto, se considera menor.
 Otros operadores similares son >= (mayor o igual que), <= (menor o igual que), == (igual a), y != (no igual a).
 
 
+## Operadores lógicos
+
+El operador && representa el and lógico. Es un operador binario, y su resultado es verdadero solo si ambos valores dados son verdaderos.
+
+```
+console.log(true && false)
+// → false
+console.log(true && true)
+// → true
+```
+
+El operador || representa el or lógico. **Produce verdadero si cualquiera de los valores dados es verdadero.**
+
+```
+console.log(false || true)
+// → true
+console.log(false || false)
+// → false
+```
+
+Not se escribe con un signo de exclamación (!). Es un operador unario que invierte el valor dado; !true produce false y !false produce true.
+
+### Operador ternario
+Imagina que eres el director técnico de un equipo y estás decidiendo quién va a patear un penalti.
+
+La decisión depende de si tu delantero estrella está en la cancha o no.
+
+Podrías decir:
+
+¿Está el delantero estrella en la cancha?
+
+Sí → entonces él patea el penalti.
+
+No → entonces lo patea el capitán del equipo.
+
+Eso en código sería:
+
+```
+delanteroEnCancha ? "patea el delantero" : "patea el capitán"
+```
+
+## Valores vacíos
+
+Hay dos valores especiales, escritos null y undefined, que se utilizan para denotar la ausencia de un valor significativo. Son valores en sí mismos, pero no llevan ninguna información. Muchas operaciones en el lenguaje que no producen un valor significativo devuelven undefined simplemente porque tienen que devolver algún valor.
+
+## Conversión automática de tipos
+
+Cuando algo que no se corresponde con un número de manera obvia (como "five" o undefined) se convierte en un número, obtienes el valor NaN. Más operaciones aritméticas en NaN siguen produciendo NaN, así que si te encuentras con uno de estos en un lugar inesperado, busca conversiones de tipo accidentales.
+
+Cuando se comparan valores del mismo tipo usando el operador ==, el resultado es fácil de predecir: deberías obtener verdadero cuando ambos valores son iguales, excepto en el caso de NaN. Pero cuando los tipos difieren, JavaScript utiliza un conjunto de reglas complicado y confuso para determinar qué hacer. En la mayoría de los casos, simplemente intenta convertir uno de los valores al tipo del otro valor. Sin embargo, cuando null o undefined aparece en cualquiera de los lados del operador, produce verdadero solo si ambos lados son uno de null o undefined.
+
+
+```
+console.log(null == undefined);
+// → true
+console.log(null == 0);
+// → false
+```
+
+¿Qué sucede si quieres probar si algo se refiere al valor preciso false? Expresiones como 0 == false y "" == false también son verdaderas debido a la conversión automática de tipos. Cuando no deseas que ocurran conversiones de tipo, hay dos operadores adicionales: === y !==. El primero prueba si un valor es precisamente igual al otro, y el segundo prueba si no es precisamente igual. Por lo tanto, "" === false es falso como se espera. Recomiendo usar los operadores de comparación de tres caracteres defensivamente para evitar conversiones de tipo inesperadas que puedan complicarte las cosas. Pero cuando estés seguro de que los tipos en ambos lados serán los mismos, no hay problema en usar los operadores más cortos.
+
+## Cortocircuito de operadores lógicos
+
+### Operador ||
+
+Escenario: Elección de portero para el partido
+Tienes dos posibles arqueros:
+
+Arquero titular (izquierda).
+
+Arquero suplente (derecha).
+
+Cuando vas a elegir quién ataja, dices:
+
+"Si el arquero titular está disponible, él juega. Si no, juega el suplente."
+
+Eso en código con el operador || sería:
+
+```
+arqueroTitular || arqueroSuplente
+🧠 ¿Qué hace JavaScript internamente?
+Evalúa el primer valor (el de la izquierda).
+
+Si ese valor se puede interpretar como true (o sea, no es null, undefined, false, 0, NaN o ""), lo devuelve tal cual.
+
+Si ese valor es considerado false, entonces evalúa y devuelve el valor del lado derecho.
+```
+
+### Operador ??
+
+Se asemeja a ||, pero devuelve el valor de la derecha solo si el de la izquierda es null o undefined, no si es algún otro valor que se pueda convertir en false. A menudo, este comportamiento es preferible al de ||.
+
+```
+console.log(0 || 100);
+// → 100
+console.log(0 ?? 100);
+// → 0
+console.log(null ?? 100);
+// → 100
+```
+
+### Operador &&
+
+Para que puedas convocar a tu delantero estrella, necesitas que:
+
+Esté en forma física.
+
+Tenga el pasaporte vigente (porque es partido internacional).
+
+Entonces dirías:
+
+"Si está en forma y tiene pasaporte, lo convoco."
+
+Eso sería:
+
+js
+Copiar
+Editar
+estaEnForma && tienePasaporte
+🔍 ¿Qué devuelve esto?
+Si estaEnForma es false (ej. lesionado), ya no importa lo demás. Devuelve ese valor directamente.
+
+Si estaEnForma es true, entonces revisa el segundo valor (tienePasaporte).
+
+🧪 Ejemplos prácticos
+```
+true && "Messi"     // Resultado: "Messi"
+false && "Messi"    // Resultado: false
+"Listo" && "Vamos"  // Resultado: "Vamos"
+"" && "Vamos"       // Resultado: ""
+```
+
+
+
 ## Operadores unarios
 
 #### ¿Qué significan los operadores unarios?
