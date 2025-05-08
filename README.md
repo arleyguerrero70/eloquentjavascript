@@ -21,3 +21,16 @@ Los navegadores web no son las únicas plataformas en las que se utiliza JavaScr
 - Depende de ti hacer el esfuerzo necesario. Cuando te cueste seguir el libro, no saques conclusiones precipitadas sobre tus propias capacidades. Estás bien, simplemente necesitas seguir adelante. Tómate un descanso, vuelve a leer algo de material y asegúrate de leer y comprender los programas de ejemplo y los ejercicios. Aprender es un trabajo duro, pero todo lo que aprendas será tuyo y facilitará aún más el aprendizaje futuro.
 
 - La habilidad de programar es la habilidad de construir programas que no te confundan a ti mismo. Los mejores programas son aquellos que logran hacer algo interesante mientras siguen siendo fáciles de entender.
+
+
+## Datos curiosos:
+
+### Capítulo 2: 
+
+Una sola instrucción let puede definir múltiples enlaces. Las definiciones deben estar separadas por comas:
+
+```
+let one = 1, two = 2;
+console.log(one + two);
+// → 3
+```
