@@ -22,6 +22,8 @@ Los navegadores web no son las únicas plataformas en las que se utiliza JavaScr
 
 - La habilidad de programar es la habilidad de construir programas que no te confundan a ti mismo. Los mejores programas son aquellos que logran hacer algo interesante mientras siguen siendo fáciles de entender.
 
+Puedes encontrar soluciones completas a los ejercicios en línea en https://eloquentjavascript.net/code. Si deseas aprender algo de los ejercicios, te recomiendo mirar las soluciones solo después de haber resuelto el ejercicio, o al menos después de haberlo intentado lo suficiente como para tener un ligero dolor de cabeza.
+
 
 ## Datos curiosos:
 
