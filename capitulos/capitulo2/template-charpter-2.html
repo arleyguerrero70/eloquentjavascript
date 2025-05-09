@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    </head>
+    <body class="flex flex-col bg-[#222629] text-[#fff] gap-[2rem]">
+        <div>
+            <h1 class="text-3xl font-bold underline text-center">Ejercicios
+                Eloquent Javascript | Capítulo 2</h1>
+        </div>
+
+        <div class="flex flex-col justify-start p-[2rem]">
+            <h2>Ejercicios</h2>
+            <div class="flex flex-col gap-[.5rem] my-[.75rem]">
+                <h2>Haciendo un triángulo con bucles</h2>
+                <p>
+                    Escribe un bucle que realice siete llamadas a console.log
+                    para mostrar el siguiente triángulo:<br>
+
+                    #<br>
+                    ##<br>
+                    ###<br>
+                    ####<br>
+                    #####<br>
+                    ######<br>
+                    #######<br>
+                </p>
+                <p>Nota para el Arley del futuro -> Esto debe quedar como
+                    dropdown</p>
+                <p>BUGS
+                    for (let count = 0; count <= 8 ; count = count++){
+                    console.log(count)
+                    }
+
+                    🔬 ¿Qué hace count = count++?
+                    Esto es lo que pasa paso a paso:
+
+                    count++ devuelve el valor actual de count, luego incrementa.
+
+                    Pero como haces count = count++, estás asignando el valor
+                    original de count a sí mismo, y el incremento se pierde.
+
+                    Ejemplo:
+                    Si count = 0:
+
+                    count++ devuelve 0, y luego count se incrementa a 1.
+
+                    Pero justo después haces count = 0 (el valor que count++
+                    devolvió).
+
+                    Así que el valor nunca cambia.
+                </p>
+            </div>
+        </div>
+
+    </body>
+    <script src="exercise-chapter-2.js"></script>
+</html>
