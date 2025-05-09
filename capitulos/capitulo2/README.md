@@ -276,8 +276,85 @@ for (let actual = 20; ; actual = actual + 1) {
 
 Usar el operador de resto (%) es una forma sencilla de comprobar si un número es divisible por otro. Si lo es, el resto de su división es cero.
 
+La palabra clave continue es similar a break en que influye en el progreso de un bucle. Cuando se encuentra continue en el cuerpo de un bucle, el control salta fuera del cuerpo y continúa con la siguiente iteración del bucle.
+
 ## Sangrado (Indentación) de Código
 
 El papel de este sangrado dentro de los bloques es hacer que la estructura del código resalte para los lectores humanos.
 
 Con un sangrado adecuado, la forma visual de un programa corresponde a la forma de los bloques dentro de él.
+
+
+## Actualización concisa de enlaces (variable)
+
+Especialmente al hacer bucles, un programa a menudo necesita “actualizar” un enlace para que contenga un valor basado en el valor anterior de ese enlace.
+
+```
+counter = counter + 1;
+
+JavaScript proporciona un atajo para esto:
+
+counter += 1;
+result *= 2
+counter -= 1
+```
+
+Existen equivalente aún más cortos.
+
+```
+let counter = 0 // Declaración
+
+counter++ // Expresión (cuando la declaración realiza una acción)
+counter--
+```
+
+## Despachar un valor con switch
+
+```
+if (x == "valor1") accion1();
+else if (x == "valor2") accion2();
+else if (x == "valor3") accion3();
+else accionPredeterminada();
+```
+
+Existe una construcción llamada switch que está destinada a expresar dicho “despacho” de una manera más directa. Desafortunadamente, la sintaxis que JavaScript utiliza para esto (heredada de la línea de lenguajes de programación C/Java) es algo incómoda; una cadena de declaraciones if puede verse mejor. Aquí hay un ejemplo:
+
+
+```
+switch (prompt("¿Cómo está el clima?")) {
+  case "lluvioso":
+    console.log("Recuerda llevar un paraguas.");
+    break;
+  case "soleado":
+    console.log("Vístete ligero.");
+  case "nublado":
+    console.log("Sal al exterior.");
+    break;
+  default:
+    console.log("¡Tipo de clima desconocido!");
+    break;
+}
+```
+
+Puedes colocar cualquier cantidad de etiquetas case dentro del bloque abierto por switch. El programa comenzará a ejecutarse en la etiqueta que corresponda al valor que se le dio a switch, o en default si no se encuentra ningún valor coincidente. Continuará ejecutándose, incluso a través de otras etiquetas, hasta que alcance una declaración break. En algunos casos, como el caso "soleado" en el ejemplo, esto se puede usar para compartir algo de código entre casos (recomienda salir al exterior tanto para el clima soleado como para el nublado). Sin embargo, ten cuidado, es fácil olvidar un break de este tipo, lo que hará que el programa ejecute código que no deseas ejecutar.
+
+## Uso de mayúsculas
+
+Los nombres de los enlaces no pueden contener espacios, sin embargo, a menudo es útil usar varias palabras para describir claramente lo que representa el enlace.
+
+Ejemplos:
+
+```
+fuzzylittleturtle // Lower case
+fuzzy_little_turtle // Snake case
+FuzzyLittleTurtle // Pascal Case
+fuzzyLittleTurtle // Camel Case
+```
+Las funciones estándar de JavaScript y la mayoría de los programadores de JavaScript siguen el último estilo
+
+
+## Comentarios
+
+Un comentario es un fragmento de texto que forma parte de un programa pero que es completamente ignorado por la computadora. JavaScript tiene dos formas de escribir comentarios. Para escribir un comentario de una sola línea, puedes usar dos caracteres de barra (//)
+
+Una sección de texto entre /* y */ será ignorada por completo, independientemente de si contiene saltos de línea. Esto es útil para agregar bloques de información sobre un archivo o un fragmento de programa:
