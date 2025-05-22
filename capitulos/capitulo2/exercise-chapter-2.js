@@ -28,21 +28,21 @@ Escribe un programa que use console.log para imprimir todos los números del 1 a
 - Cuando tengas eso funcionando, modifica tu programa para imprimir "FizzBuzz" para los números que son divisibles por 3 y 5 (y sigue imprimiendo "Fizz" o "Buzz" para los números que son divisibles solo por uno de esos).
 */
 
-for (let count = 0; count <= 100; count++) {
-    let valueOne = "Fizz"
-    let valueTwo = "Buzz"
-    let valueThree = "FizzBuzz"
+// for (let count = 0; count <= 100; count++) {
+//     let valueOne = "Fizz"
+//     let valueTwo = "Buzz"
+//     let valueThree = "FizzBuzz"
 
-    if (count % 3 == 0) {
-        console.log(valueOne)
-    } else if ((count % 5 == 0) && (!count % 3 == 0)) {
-        console.log(valueTwo)
-    } else if ((count % 5 == 0) && (count % 3 == 0)) {
-        console.log(valueThree)
-    } else {
-        console.log(count)
-    }
-}
+//     if (count % 3 == 0) {
+//         console.log(valueOne)
+//     } else if ((count % 5 == 0) && (!count % 3 == 0)) {
+//         console.log(valueTwo)
+//     } else if ((count % 5 == 0) && (count % 3 == 0)) {
+//         console.log(valueThree)
+//     } else {
+//         console.log(count)
+//     }
+// }
 
 /* Solución del libro
 for (let n = 1; n <= 100; n++) {
@@ -51,4 +51,10 @@ for (let n = 1; n <= 100; n++) {
   if (n % 5 == 0) output += "Buzz";
   console.log(output || n);
 }
+*/
+
+/* Tablero de ajedrez
+
+
+
 */
