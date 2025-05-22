@@ -27,7 +27,7 @@ Puedes encontrar soluciones completas a los ejercicios en línea en https://eloq
 
 ## Datos curiosos:
 
-### Capítulo 2: 
+### Capítulo 2:
 
 Una sola instrucción let puede definir múltiples enlaces. Las definiciones deben estar separadas por comas:
 
@@ -36,3 +36,7 @@ let one = 1, two = 2;
 console.log(one + two);
 // → 3
 ```
+
+### Capítulo 3:
+
+"Tenemos que introducir nuevas palabras para evitar la verbosidad excesiva."
