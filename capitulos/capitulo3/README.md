@@ -282,6 +282,118 @@ const cuerno = () => {
 
 | Tipo de función          | ¿Tiene hoisting completo? | ¿Puedes llamarla antes de definirla? |
 | ------------------------ | ------------------------- | ------------------------------------ |
-| Declaración (`function`) | ✅ Sí                      | ✅ Sí                                 |
-| Arrow function (`const`) | ❌ No                      | ❌ No                                 |
-| Function expression      | ❌ No                      | ❌ No                                 |
+| Declaración (`function`) | ✅ Sí                     | ✅ Sí                                |
+| Arrow function (`const`) | ❌ No                     | ❌ No                                |
+| Function expression      | ❌ No                     | ❌ No                                |
+
+#### Pila de llamadas (Callstack)
+
+Dado que una función tiene que regresar al lugar que la llamó cuando termina, la computadora debe recordar el contexto desde el cual se realizó la llamada. En un caso, console.log tiene que regresar a la función saludar cuando haya terminado. En el otro caso, regresa al final del programa.
+
+El lugar donde la computadora almacena este contexto es la pila de llamadas. Cada vez que se llama a una función, el contexto actual se almacena en la parte superior de esta pila. Cuando una función devuelve, elimina el contexto superior de la pila y usa ese contexto para continuar la ejecución.
+
+Cuando la pila crece demasiado, la computadora fallará con un mensaje como “sin espacio en la pila” o “demasiada recursividad”.  O más bien, sería infinito, si la computadora tuviera una pila infinita. Como no la tiene, nos quedaremos sin espacio o “reventaremos la pila”.
+
+Imagina que estás jugando un partido de fútbol y cada acción que realizas es como una función en nuestro programa. Veamos cómo funciona:
+
+1
+Estado Base (Campo Vacío)
+Es como el campo antes del partido
+No hay jugadores en el campo
+Representa el estado inicial del programa
+
+2
+Primera Acción (Entrada al Campo)
+Cuando entras al campo (llamada a saludar("Harry"))
+Es como cuando sales del vestuario al campo
+Tu posición anterior (el vestuario) se guarda temporalmente
+
+3
+Acciones Secundarias (Jugadas)
+Cuando realizas una acción dentro del campo (llamada a console.log)
+Es como cuando pasas el balón a un compañero
+Tu posición actual en la jugada se guarda
+
+4
+Retorno (Regreso a Posiciones)
+Después de cada acción, vuelves a tu posición anterior
+Como cuando termina una jugada y regresas a tu posición
+Cada jugador debe saber dónde estaba antes
+Ejemplo Paso a Paso
+Veamos cómo fluye el juego (el programa):
+
+function saludar(quien) {
+console.log("Hola " + quien);
+}
+saludar("Harry");
+console.log("Adiós");
+Flujo del partido:
+
+Estado inicial (campo vacío)
+Ningún jugador en el campo
+Programa esperando instrucciones
+Primera jugada (entrada al campo)
+Jugador entra al campo (saludar("Harry"))
+Guarda su posición anterior (vestuario)
+Acción dentro del campo
+Pasa el balón al portero (console.log)
+Portero recibe y guarda el balón
+Regresa el balón al jugador
+Fin de la primera jugada
+Jugador regresa al vestuario
+Campo vuelve a estar vacío temporalmente
+Última jugada
+Nuevo jugador entra (segundo console.log)
+Realiza su acción ("Adiós")
+Termina el partido
+Importante Recordar
+La Pila de Llamadas es como el Árbitro
+Recuerda todas las posiciones
+Asegura que cada jugador regrese a su lugar correcto
+Mantiene el orden del juego
+El Espacio en la Memoria
+Como un estadio tiene capacidad limitada
+Si demasiados jugadores están en el campo simultáneamente
+Se produce un error ("sin espacio en la pila")
+La Recursividad
+Es como cuando los jugadores se pasan el balón infinitamente
+Sin una condición para parar, el estadio se llenaría
+Eventualmente causaría un error
+Esta analogía del fútbol te ayudará a entender mejor cómo las funciones se llaman unas a otras y cómo la computadora mantiene registro de dónde debe volver después de cada llamada. ¡Es como dirigir un equipo donde cada jugador debe saber exactamente cuándo y dónde debe moverse!
+
+#### Argumentos Opcionales
+
+Argumentos Opcionales
+El siguiente código está permitido y se ejecuta sin ningún problema:
+
+```
+function square(x) { return x * x; }
+console.log(square(4, true, "erizo"));
+// → 16
+```
+
+Hemos definido square con solo un parámetro. Sin embargo, cuando lo llamamos con tres, el lenguaje no se queja. Ignora los argumentos adicionales y calcula el cuadrado del primero.
+
+JavaScript es extremadamente flexible en cuanto al número de argumentos que puedes pasar a una función. Si pasas demasiados, los extras son ignorados. Si pasas muy pocos, los parámetros faltantes se les asigna el valor undefined.
+
+#### Clausura
+
+La capacidad de tratar las funciones como valores, combinada con el hecho de que los enlaces locales se recrean cada vez que se llama a una función, plantea una pregunta interesante: ¿qué sucede con los enlaces locales cuando la llamada a la función que los creó ya no está activa?El siguiente código muestra un ejemplo de esto. Define una función, wrapValue, que crea un enlace local. Luego devuelve una función que accede a este enlace local y lo devuelve:
+
+
+```
+function wrapValue(n) {
+  let local = n;
+  return () => local;
+}
+
+let wrap1 = wrapValue(1);
+let wrap2 = wrapValue(2);
+console.log(wrap1());
+// → 1
+console.log(wrap2());
+// → 2
+```
+
+Esto está permitido y funciona como esperarías: ambas instancias del enlace aún pueden accederse. Esta situación es una buena demostración de que los enlaces locales se crean nuevamente para cada llamada, y las diferentes llamadas no afectan los enlaces locales de los demás.
+
