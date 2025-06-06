@@ -40,3 +40,5 @@ console.log(one + two);
 ### Capítulo 3:
 
 "Tenemos que introducir nuevas palabras para evitar la verbosidad excesiva."
+"El dilema de velocidad versus elegancia es interesante. Se puede ver como una especie de continuo entre la compatibilidad con los humanos y las máquinas. Casi cualquier programa puede ser acelerado haciendo que sea más extenso y complicado. El programador debe encontrar un equilibrio apropiado.
+Por lo tanto, generalmente deberías comenzar escribiendo algo que sea correcto y fácil de entender. Si te preocupa que sea demasiado lento—lo cual suele ser raro, ya que la mayoría del código simplemente no se ejecuta lo suficiente como para tomar una cantidad significativa de tiempo—puedes medir después y mejorarlo si es necesario."
