@@ -282,6 +282,198 @@ const cuerno = () => {
 
 | Tipo de función          | ¿Tiene hoisting completo? | ¿Puedes llamarla antes de definirla? |
 | ------------------------ | ------------------------- | ------------------------------------ |
-| Declaración (`function`) | ✅ Sí                      | ✅ Sí                                 |
-| Arrow function (`const`) | ❌ No                      | ❌ No                                 |
-| Function expression      | ❌ No                      | ❌ No                                 |
+| Declaración (`function`) | ✅ Sí                     | ✅ Sí                                |
+| Arrow function (`const`) | ❌ No                     | ❌ No                                |
+| Function expression      | ❌ No                     | ❌ No                                |
+
+#### Pila de llamadas (Callstack)
+
+Dado que una función tiene que regresar al lugar que la llamó cuando termina, la computadora debe recordar el contexto desde el cual se realizó la llamada. En un caso, console.log tiene que regresar a la función saludar cuando haya terminado. En el otro caso, regresa al final del programa.
+
+El lugar donde la computadora almacena este contexto es la pila de llamadas. Cada vez que se llama a una función, el contexto actual se almacena en la parte superior de esta pila. Cuando una función devuelve, elimina el contexto superior de la pila y usa ese contexto para continuar la ejecución.
+
+Cuando la pila crece demasiado, la computadora fallará con un mensaje como “sin espacio en la pila” o “demasiada recursividad”.  O más bien, sería infinito, si la computadora tuviera una pila infinita. Como no la tiene, nos quedaremos sin espacio o “reventaremos la pila”.
+
+Imagina que estás jugando un partido de fútbol y cada acción que realizas es como una función en nuestro programa. Veamos cómo funciona:
+
+1
+Estado Base (Campo Vacío)
+Es como el campo antes del partido
+No hay jugadores en el campo
+Representa el estado inicial del programa
+
+2
+Primera Acción (Entrada al Campo)
+Cuando entras al campo (llamada a saludar("Harry"))
+Es como cuando sales del vestuario al campo
+Tu posición anterior (el vestuario) se guarda temporalmente
+
+3
+Acciones Secundarias (Jugadas)
+Cuando realizas una acción dentro del campo (llamada a console.log)
+Es como cuando pasas el balón a un compañero
+Tu posición actual en la jugada se guarda
+
+4
+Retorno (Regreso a Posiciones)
+Después de cada acción, vuelves a tu posición anterior
+Como cuando termina una jugada y regresas a tu posición
+Cada jugador debe saber dónde estaba antes
+Ejemplo Paso a Paso
+Veamos cómo fluye el juego (el programa):
+
+function saludar(quien) {
+console.log("Hola " + quien);
+}
+saludar("Harry");
+console.log("Adiós");
+Flujo del partido:
+
+Estado inicial (campo vacío)
+Ningún jugador en el campo
+Programa esperando instrucciones
+Primera jugada (entrada al campo)
+Jugador entra al campo (saludar("Harry"))
+Guarda su posición anterior (vestuario)
+Acción dentro del campo
+Pasa el balón al portero (console.log)
+Portero recibe y guarda el balón
+Regresa el balón al jugador
+Fin de la primera jugada
+Jugador regresa al vestuario
+Campo vuelve a estar vacío temporalmente
+Última jugada
+Nuevo jugador entra (segundo console.log)
+Realiza su acción ("Adiós")
+Termina el partido
+Importante Recordar
+La Pila de Llamadas es como el Árbitro
+Recuerda todas las posiciones
+Asegura que cada jugador regrese a su lugar correcto
+Mantiene el orden del juego
+El Espacio en la Memoria
+Como un estadio tiene capacidad limitada
+Si demasiados jugadores están en el campo simultáneamente
+Se produce un error ("sin espacio en la pila")
+La Recursividad
+Es como cuando los jugadores se pasan el balón infinitamente
+Sin una condición para parar, el estadio se llenaría
+Eventualmente causaría un error
+Esta analogía del fútbol te ayudará a entender mejor cómo las funciones se llaman unas a otras y cómo la computadora mantiene registro de dónde debe volver después de cada llamada. ¡Es como dirigir un equipo donde cada jugador debe saber exactamente cuándo y dónde debe moverse!
+
+#### Argumentos Opcionales
+
+Argumentos Opcionales
+El siguiente código está permitido y se ejecuta sin ningún problema:
+
+```
+function square(x) { return x * x; }
+console.log(square(4, true, "erizo"));
+// → 16
+```
+
+Hemos definido square con solo un parámetro. Sin embargo, cuando lo llamamos con tres, el lenguaje no se queja. Ignora los argumentos adicionales y calcula el cuadrado del primero.
+
+JavaScript es extremadamente flexible en cuanto al número de argumentos que puedes pasar a una función. Si pasas demasiados, los extras son ignorados. Si pasas muy pocos, los parámetros faltantes se les asigna el valor undefined.
+
+#### Clausura
+
+La capacidad de tratar las funciones como valores, combinada con el hecho de que los enlaces locales se recrean cada vez que se llama a una función, plantea una pregunta interesante: ¿qué sucede con los enlaces locales cuando la llamada a la función que los creó ya no está activa?El siguiente código muestra un ejemplo de esto. Define una función, wrapValue, que crea un enlace local. Luego devuelve una función que accede a este enlace local y lo devuelve:
+
+
+```
+function wrapValue(n) {
+  let local = n;
+  return () => local;
+}
+
+let wrap1 = wrapValue(1);
+let wrap2 = wrapValue(2);
+console.log(wrap1());
+// → 1
+console.log(wrap2());
+// → 2
+```
+
+Esto está permitido y funciona como esperarías: ambas instancias del enlace aún pueden accederse. Esta situación es una buena demostración de que los enlaces locales se crean nuevamente para cada llamada, y las diferentes llamadas no afectan los enlaces locales de los demás.
+
+#### Recursión
+
+Es perfectamente válido que una función se llame a sí misma, siempre y cuando no lo haga tan a menudo que desborde la pila. Una función que se llama a sí misma se llama recursiva. La recursión permite que algunas funciones se escriban de una manera diferente. Toma, por ejemplo, esta función power, que hace lo mismo que el operador ** (potenciación):
+
+```
+function power(base, exponent) {
+  if (exponent == 0) {
+    return 1;
+  } else {
+    return base * power(base, exponent - 1);
+  }
+}
+
+console.log(power(2, 3));
+// → 8
+```
+Sin embargo, esta implementación tiene un problema: en implementaciones típicas de JavaScript, es aproximadamente tres veces más lenta que una versión que utiliza un bucle for. Recorrer un simple bucle suele ser más económico que llamar a una función múltiples veces.
+
+
+### TEST
+
+Considera este rompecabezas: al comenzar desde el número 1 y repetidamente sumar 5 o multiplicar por 3, se puede producir un conjunto infinito de números. ¿Cómo escribirías una función que, dado un número, intente encontrar una secuencia de tales sumas y multiplicaciones que produzcan ese número? Por ejemplo, el número 13 podría alcanzarse al multiplicar por 3 y luego sumar 5 dos veces, mientras que el número 15 no podría alcanzarse en absoluto.
+
+![alt text](image.png)
+
+En el diagrama anterior:
+
+El nodo rosa representa el punto de partida (1)
+Las flechas rojas indican el camino correcto hacia la solución
+Cada nodo muestra tanto el valor actual como la operación realizada
+Las ramas que superan el objetivo (13) se cortan automáticamente
+
+La función utiliza dos técnicas importantes:
+
+Backtracking: Cuando encuentra un camino que no lleva a la solución (como 18 o 24), retrocede y prueba otras alternativas
+Operador nullish coalescing (??): Prueba la primera opción (+5), y solo si esa opción devuelve null, prueba la segunda opción (*3)
+Este proceso continúa hasta que encuentra una secuencia de operaciones que llegue exactamente al objetivo (13), o hasta que agota todas las posibilidades sin encontrar una solución.
+
+#### Crecimiento de funciones
+
+Hay dos formas más o menos naturales de introducir funciones en los programas.
+
+La primera ocurre cuando te encuentras escribiendo código similar varias veces. Preferirías no hacer eso, ya que tener más código significa más espacio para que se escondan los errores y más material para que las personas que intentan entender el programa lo lean. Por lo tanto, tomas la funcionalidad repetida, encuentras un buen nombre para ella y la colocas en una función.
+
+La segunda forma es que te das cuenta de que necesitas alguna funcionalidad que aún no has escrito y que suena como si mereciera su propia función. Comienzas por nombrar la función, luego escribes su cuerpo. Incluso podrías comenzar a escribir código que use la función antes de definir la función en sí.
+
+Lo difícil que es encontrar un buen nombre para una función es una buena indicación de lo claro que es el concepto que estás tratando de envolver con ella. Vamos a través de un ejemplo.
+
+#### Funciones y efectos secundarios
+
+Las funciones pueden dividirse aproximadamente en aquellas que se llaman por sus efectos secundarios y aquellas que se llaman por su valor de retorno (aunque también es posible tener efectos secundarios y devolver un valor).
+
+La primera función auxiliar en el ejemplo de la granja, imprimirConRellenoYEtiqueta, se llama por su efecto secundario: imprime una línea. La segunda versión, rellenarConCeros, se llama por su valor de retorno. No es casualidad que la segunda sea útil en más situaciones que la primera. Las funciones que crean valores son más fáciles de combinar de nuevas formas que las funciones que realizan efectos secundarios directamente.
+
+Una función pura es un tipo específico de función productora de valor que no solo no tiene efectos secundarios, sino que tampoco depende de efectos secundarios de otro código, por ejemplo, no lee enlaces globales cuyo valor podría cambiar. Una función pura tiene la agradable propiedad de que, al llamarla con los mismos argumentos, siempre produce el mismo valor (y no hace nada más). Una llamada a tal función puede sustituirse por su valor de retorno sin cambiar el significado del código. Cuando no estás seguro de si una función pura está funcionando correctamente, puedes probarla llamándola y saber que si funciona en ese contexto, funcionará en cualquier otro. Las funciones no puras tienden a requerir más andamiaje para probarlas.
+
+### Resumen 
+
+Este capítulo te enseñó cómo escribir tus propias funciones. La palabra clave function, cuando se usa como expresión, puede crear un valor de función. Cuando se usa como una declaración, puede usarse para declarar un enlace y darle una función como su valor. Las funciones de flecha son otra forma de crear funciones.
+
+
+
+```
+// Definir f para contener un valor de función
+const f = function(a) {
+  console.log(a + 2);
+};
+
+// Declarar g como una función
+function g(a, b) {
+  return a * b * 3.5;
+}
+
+// Un valor de función menos verboso
+let h = a => a % 3;
+```
+
+Una parte clave para entender las funciones es comprender los ámbitos (scopes). Cada bloque crea un nuevo ámbito. Los parámetros y los enlaces declarados en un ámbito dado son locales y no son visibles desde el exterior. Los enlaces declarados con var se comportan de manera diferente: terminan en el ámbito de la función más cercana o en el ámbito global.
+
+Separar las tareas que realiza tu programa en diferentes funciones es útil. No tendrás que repetirte tanto, y las funciones pueden ayudar a organizar un programa agrupando el código en piezas que hacen cosas específicas.
